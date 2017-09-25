@@ -1,0 +1,20 @@
+{
+  "name": "fsth/koa",
+  "description": "",
+  "autoload": {
+    "psr-4": {
+      "FSth\\Koa\\": "src"
+    }
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "qiqisan",
+      "email": "qiqisan1@126.com"
+    }
+  ],
+  "require": {
+    "fsth/co": "dev-master",
+    "monolog/monolog": ">=1.22.0"
+  }
+}
