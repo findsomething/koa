@@ -15,7 +15,7 @@ class LoggerHandler implements Middleware
         $mode = $ctx->config['log']['mode'];
         $name = !empty($ctx->config['log']['name']) ? $ctx->config['log']['name'] : "run";
         $ctx->logger = $this->createLogger($name, $logPath, $mode);
-        
+
         yield $next;
     }
 

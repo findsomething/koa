@@ -18,8 +18,8 @@ class HttpProtocol
 
     public function __construct(Application $app, Context $ctx)
     {
-        $this->app;
-        $this->ctx;
+        $this->app = $app;
+        $this->ctx = $ctx;
     }
 
     public function setMiddleWare($middleWare)
@@ -37,7 +37,7 @@ class HttpProtocol
 
     public function onWorkerStart(\swoole_http_server $server, $workerId)
     {
-        
+
     }
 
     protected function makeRequestHandler(Context $ctx)

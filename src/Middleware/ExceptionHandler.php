@@ -2,7 +2,7 @@
 
 namespace FSth\Koa\Middleware;
 
-use FSth\Koa\KoaException;
+use FSth\Koa\Exception\KoaException;
 use FSth\Koa\Server\Context;
 
 class ExceptionHandler implements Middleware

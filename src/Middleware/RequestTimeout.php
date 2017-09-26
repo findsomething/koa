@@ -3,6 +3,7 @@
 namespace FSth\Koa\Middleware;
 
 use FSth\Co\Call;
+use FSth\Koa\Exception\KoaException;
 use FSth\Koa\Server\Context;
 
 class RequestTimeout implements Middleware
@@ -16,7 +17,7 @@ class RequestTimeout implements Middleware
     {
         $this->timeout = $timeout;
         if ($ex === null) {
-            $this->exception = new \HttpException(408, "Request timeout");
+            $this->exception = new KoaException("Request timeout", 408);
         } else {
             $this->exception = $ex;
         }

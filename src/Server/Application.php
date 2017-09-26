@@ -37,11 +37,11 @@ class Application
     }
 
     /**
-     * @param Middleware $fn
+     * @param $fn
      *  middleware :: (Context $ctx, $next) -> void
      * @return $this
      */
-    public function bind(Middleware $fn)
+    public function bind($fn)
     {
         $this->middleware[] = $fn;
         return $this;

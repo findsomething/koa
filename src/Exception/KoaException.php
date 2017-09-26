@@ -1,6 +1,6 @@
 <?php
 
-namespace FSth\Koa;
+namespace FSth\Koa\Exception;
 
 class KoaException extends \Exception
 {

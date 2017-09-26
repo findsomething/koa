@@ -65,6 +65,7 @@ class HttpServer
     {
         $this->init();
         $this->registerSwooleEvent();
+        echo sprintf("listen %s:%s\n", $this->host, $this->port);
         $this->server->start();
     }
 
@@ -90,7 +91,7 @@ class HttpServer
     protected function createServer()
     {
         $this->server = new \swoole_http_server($this->host, $this->port, SWOOLE_PROCESS, SWOOLE_SOCK_TCP);
-        $this->server->setting($this->getSetting());
+        $this->server->set($this->getSetting());
     }
 
     protected function registerSwooleEvent()
