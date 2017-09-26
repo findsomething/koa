@@ -2,12 +2,10 @@
 
 namespace FSth\Koa\Server;
 
-use FSth\Co\Call;
-use FSth\Co\Tool;
+use FSth\Koa\Singleton\Config;
+use FSth\Koa\Exception\KoaException;
 use FSth\Koa\HttpServer\HttpProtocol;
 use FSth\Koa\HttpServer\HttpServer;
-use FSth\Koa\Middleware\LoggerHandler;
-use FSth\Koa\Middleware\Middleware;
 use FSth\Koa\Solid\CallSolid;
 
 class Application
@@ -49,18 +47,45 @@ class Application
 
     public function listen(array $config = [])
     {
+        $this->config = $config;
+
         $this->fn = CallSolid::compose($this->middleware);
 
-        $httpServer = new HttpServer($config);
+        $httpServer = $this->getHttpServer();
+
         $this->server = $httpServer->server;
 
-        $protocol = new HttpProtocol($this, $this->context);
+        $protocol = $this->getHttpProtocol();
+
         $protocol->setMiddleWare($this->fn);
         $httpServer->setProtocol($protocol);
 
         $this->context->server = $this->server;
 
         $httpServer->listen();
+    }
 
+    protected function getHttpServer()
+    {
+        if (empty($serverClass = Config::getInstance()->get('http_server'))) {
+            return new HttpServer($this->config);
+        }
+        $httpServer = new $serverClass($this->config);
+        if ($httpServer instanceof HttpServer) {
+            return $httpServer;
+        }
+        throw new KoaException("初始化httpServer失败");
+    }
+
+    protected function getHttpProtocol()
+    {
+        if (empty($protocolClass = Config::getInstance()->get('http_protocol'))) {
+            return new HttpProtocol($this, $this->context);
+        }
+        $httpProtocol = new $protocolClass($this, $this->context);
+        if ($httpProtocol instanceof HttpProtocol) {
+            return $httpProtocol;
+        }
+        throw new KoaException("初始化httpProtocol失败");
     }
 }
