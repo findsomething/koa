@@ -25,13 +25,8 @@ class ExceptionHandler implements Middleware
             }
 
             $err = ['code' => $code, 'msg' => $msg];
-            if ($ctx->accept("json")) {
-                $ctx->status = 200;
-                $ctx->body = $err;
-            } else {
-                $ctx->status = $status;
-                $ctx->body = $err;
-            }
+            $ctx->status = $status;
+            $ctx->body = json_encode($err);
         }
     }
 }
