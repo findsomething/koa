@@ -15,6 +15,7 @@
   ],
   "require": {
     "fsth/co": "v0.1.0",
-    "monolog/monolog": ">=1.22.0"
+    "monolog/monolog": ">=1.22.0",
+    "nikic/fast-route": "v1.2.0"
   }
 }
