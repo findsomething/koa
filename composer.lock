@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b630fb79d8bcecdb64b86dc0808f3286",
-    "content-hash": "a524c81989c45e06593d0f090ac480d7",
+    "hash": "64e2636e8516a6a79df9a81e794194db",
+    "content-hash": "3125f84779f7d7e863ae156b2bc1c3e2",
     "packages": [
         {
             "name": "fsth/co",
-            "version": "dev-master",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/findsomething/co.git",
-                "reference": "4c23b8b979566f2617ea8bc3de99c25475781466"
+                "reference": "2092aac97085dc6691c25ea599d5acf8b0efc2c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/findsomething/co/4c23b8b979566f2617ea8bc3de99c25475781466.zip",
-                "reference": "4c23b8b979566f2617ea8bc3de99c25475781466",
+                "url": "https://files.phpcomposer.com/files/findsomething/co/2092aac97085dc6691c25ea599d5acf8b0efc2c6.zip",
+                "reference": "2092aac97085dc6691c25ea599d5acf8b0efc2c6",
                 "shasum": ""
             },
             "type": "library",
@@ -37,7 +37,7 @@
                     "email": "qiqisan1@126.com"
                 }
             ],
-            "time": "2017-06-28 09:59:39"
+            "time": "2017-09-25 11:28:02"
         },
         {
             "name": "monolog/monolog",
@@ -168,9 +168,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "fsth/co": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

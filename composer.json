@@ -14,7 +14,7 @@
     }
   ],
   "require": {
-    "fsth/co": "dev-master",
+    "fsth/co": "v0.1.0",
     "monolog/monolog": ">=1.22.0"
   }
 }
