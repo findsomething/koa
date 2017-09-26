@@ -2,6 +2,7 @@
 
 namespace FSth\Koa\Server;
 
+use FSth\Koa\Exception\KoaException;
 use Monolog\Logger;
 
 class Context
@@ -74,8 +75,8 @@ class Context
     {
         if ($message instanceof \Exception) {
             $ex = $message;
-            throw new \HttpException($status, $ex->getMessage(), $ex->getCode(), $ex->getPrevious());
+            throw new KoaException($status, $ex->getMessage(), $ex->getCode(), $ex->getPrevious());
         }
-        throw new \HttpException($status, $message);
+        throw new KoaException($status, $message);
     }
 }
