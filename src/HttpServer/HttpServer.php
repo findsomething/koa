@@ -109,6 +109,6 @@ class HttpServer
 
     protected function getSetting()
     {
-        return ['host' => $this->host, 'port' => $this->port] + $this->setting + $this->config['setting'];
+        return $this->config['setting'] + ['host' => $this->host, 'port' => $this->port] + $this->setting;
     }
 }
