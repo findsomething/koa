@@ -42,6 +42,8 @@ class Context
      */
     public $logger;
 
+    public $bodyType = 'text';
+
     public $state = [];
     public $respond = true;
     public $body;
