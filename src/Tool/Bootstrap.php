@@ -4,8 +4,8 @@ namespace FSth\Koa\Tool;
 
 abstract class Bootstrap
 {
-    private $params;
-    private $method;
+    protected $params;
+    protected $method;
 
 
     /**
@@ -19,7 +19,7 @@ abstract class Bootstrap
      *      worker_num
      *      ...
      */
-    private $config;
+    protected $config;
 
     public function __construct($params)
     {
