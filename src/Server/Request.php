@@ -2,6 +2,8 @@
 
 namespace FSth\Koa\Server;
 
+use FSth\Koa\HttpServer\RawParser;
+
 class Request
 {
     /**
@@ -39,6 +41,7 @@ class Request
         $this->ctx = $ctx;
         $this->req = $req;
         $this->res = $res;
+        $this->setPostWithRaw();
     }
 
     public function __get($name)
@@ -77,6 +80,14 @@ class Request
                 return $this->req->server["server_protocol"];
             default:
                 return $this->req->$name;
+        }
+    }
+
+    private function setPostWithRaw()
+    {
+        if (strtoupper($this->req->server['request_method']) == 'POST') {
+            $parser = new RawParser($this->req->header['content-type'], $this->req->rawContent());
+            $this->req->post = $parser->parse();
         }
     }
 }
