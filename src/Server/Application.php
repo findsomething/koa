@@ -45,13 +45,16 @@ class Application
         return $this;
     }
 
-    public function listen(array $config = [])
+    public function listen(array $config = [], $daemon = false)
     {
         $this->config = $config;
 
         $this->fn = CallSolid::compose($this->middleware);
 
         $httpServer = $this->getHttpServer();
+        if ($daemon) {
+            $httpServer->daemonize();
+        }
 
         $this->server = $httpServer->server;
 

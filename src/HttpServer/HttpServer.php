@@ -61,10 +61,16 @@ class HttpServer
         $this->protocol = $protocol;
     }
 
+    public function daemonize()
+    {
+        $this->setting['daemonize'] = 1;
+    }
+
     public function listen()
     {
         $this->init();
         $this->registerSwooleEvent();
+        $this->server->set($this->getSetting());
         echo sprintf("listen %s:%s\n", $this->host, $this->port);
         $this->server->start();
     }
@@ -91,7 +97,6 @@ class HttpServer
     protected function createServer()
     {
         $this->server = new \swoole_http_server($this->host, $this->port, SWOOLE_PROCESS, SWOOLE_SOCK_TCP);
-        $this->server->set($this->getSetting());
     }
 
     protected function registerSwooleEvent()
