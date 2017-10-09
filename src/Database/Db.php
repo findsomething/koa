@@ -20,4 +20,28 @@ class Db
         MysqlPool::getInstance()->free($connection);
         yield $result;
     }
+
+    public function search($sid, $data = [], $orderBy = 'createdTime', $start = 0, $limit = 100)
+    {
+        $sqlMap = $this->sqlMap->getSqlMap($sid);
+        $conditions = !empty($sqlMap['conditions']) ? $sqlMap['conditions'] : [];
+        $where = SqlParser::parseWhere($conditions, $data);
+
+        yield $this->query($sid, [
+            'where' => $where,
+            'order' => $orderBy,
+            'limit' => sprintf("%d,%d", intval($start), intval($limit))
+        ]);
+    }
+
+    public function count($sid, $data = [])
+    {
+        $sqlMap = $this->sqlMap->getSqlMap($sid);
+        $conditions = !empty($sqlMap['conditions']) ? $sqlMap['conditions'] : [];
+        $where = SqlParser::parseWhere($conditions, $data);
+
+        yield $this->query($sid, [
+            'where' => $where,
+        ]);
+    }
 }

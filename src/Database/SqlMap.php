@@ -21,6 +21,11 @@ class SqlMap
         return $sqlMap;
     }
 
+    public function getSqlMap($sid)
+    {
+        return $this->getSqlMapBySid($sid);
+    }
+
     private function builder($sqlMap, $data, $options)
     {
         return (new SqlBuilder())->setSqlMap($sqlMap)->builder($data, $options)->getSqlMap();
