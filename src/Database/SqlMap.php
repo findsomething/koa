@@ -3,12 +3,9 @@
 namespace FSth\Koa\Database;
 
 use FSth\Koa\Exception\SqlMapCanNotFindException;
-use FSth\Koa\Singleton\Singleton;
 
 class SqlMap
 {
-    use Singleton;
-
     private $sqlMaps = [];
 
     public function setSqlMaps($sqlMaps)

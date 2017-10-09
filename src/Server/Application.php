@@ -2,7 +2,6 @@
 
 namespace FSth\Koa\Server;
 
-use FSth\Koa\Singleton\Config;
 use FSth\Koa\Exception\KoaException;
 use FSth\Koa\HttpServer\HttpProtocol;
 use FSth\Koa\HttpServer\HttpServer;
@@ -70,7 +69,8 @@ class Application
 
     protected function getHttpServer()
     {
-        if (empty($serverClass = Config::getInstance()->get('http_server'))) {
+        $serverClass = !empty($this->config['http_server']) ? $this->config['http_server'] : null;
+        if (!($serverClass && class_exists($serverClass))){
             return new HttpServer($this->config);
         }
         $httpServer = new $serverClass($this->config);
@@ -82,7 +82,8 @@ class Application
 
     protected function getHttpProtocol()
     {
-        if (empty($protocolClass = Config::getInstance()->get('http_protocol'))) {
+        $protocolClass = !empty($this->config['http_protocol']) ? $this->config['http_protocol'] : null;
+        if (!($protocolClass && class_exists($protocolClass))){
             return new HttpProtocol($this, $this->context);
         }
         $httpProtocol = new $protocolClass($this, $this->context);
