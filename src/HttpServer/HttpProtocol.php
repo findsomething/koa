@@ -4,6 +4,7 @@ namespace FSth\Koa\HttpServer;
 
 use FSth\Co\Call;
 use FSth\Co\Tool;
+use FSth\Koa\Exception\KoaException;
 use FSth\Koa\Server\Application;
 use FSth\Koa\Server\Context;
 use FSth\Koa\Server\Request;
@@ -68,13 +69,13 @@ class HttpProtocol
         }
 
         $msg = $ex->getMessage();
-        if ($ex instanceof \HttpException) {
+        if ($ex instanceof KoaException) {
             $status = $ex->getCode() ?: 500;
             $ctx->res->status($status);
         } else {
             $ctx->res->status(500);
         }
-        $ctx->res->header("Content-Type", "text");
+        $ctx->res->header("Content-Type", "text/html;charset=utf-8");
         $ctx->res->write($msg);
 
         $ctx->res->end();
