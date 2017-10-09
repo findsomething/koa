@@ -7,6 +7,9 @@ class SqlParser
     public static function parseWhere($conditions, $data = [])
     {
         $where = [];
+        if (!is_array($conditions) || !is_array($data)) {
+            return $where;
+        }
         foreach ($data as $k => $v) {
             if (!empty($conditions[$k])) {
                 list($item, $operation, $null) = explode(' ', $conditions[$k]);
