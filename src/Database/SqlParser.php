@@ -11,7 +11,7 @@ class SqlParser
             return $where;
         }
         foreach ($data as $k => $v) {
-            if (!empty($conditions[$k])) {
+            if (!empty($conditions[$k]) && strlen(trim($v)) > 0) {
                 list($item, $operation, $null) = explode(' ', $conditions[$k]);
                 $where[] = [
                     $item, $operation, $v
