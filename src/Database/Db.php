@@ -44,4 +44,37 @@ class Db
             'where' => $where,
         ]);
     }
+
+    public function insert($sid, $data)
+    {
+        yield $this->query($sid, [
+            'insert' => $data
+        ]);
+    }
+
+    public function batchInsert($sid, $datas)
+    {
+        yield $this->query($sid, [
+            'inserts' => $datas
+        ]);
+    }
+
+    public function update($sid, $id, $data)
+    {
+        yield $this->query($sid, [
+            'data' => $data,
+            'var' => [
+                'id' => $id,
+            ]
+        ]);
+    }
+
+    public function delete($sid, $id)
+    {
+        yield $this->query($sid, [
+            'var' => [
+                'id' => $id,
+            ]
+        ]);
+    }
 }

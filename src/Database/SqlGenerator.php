@@ -11,11 +11,15 @@ class SqlGenerator
 {
     const INSERT = 'insert';
     const SELECT = 'select';
+    const UPDATE = 'update';
+    const DELETE = 'delete';
 
     const INSERT_SQL = 'INSERT INTO %s #INSERT#';
     const INSERTS_SQL = 'INSERT INTO %s #INSERTS#';
     const SELECT_SQL = 'SELECT * FROM %s WHERE #WHERE# #ORDER# #LIMIT#';
     const COUNT_SQL = 'SELECT count(*) FROM %s WHERE #WHERE#';
+    const UPDATE_SQL = 'UPDATE %s SET #DATA# WHERE id = #{id} LIMIT 1';
+    const DELETE_SQL = 'DELETE FROM %s WHERE id = #{id} LIMIT 1';
 
     const EXECUTE = 'executeQuery';
     const FETCH_ALL = 'fetchAll';
@@ -72,7 +76,9 @@ class SqlGenerator
             'insert' => $this->initInsert($table),
             'batch_insert' => $this->initBatchInsert($table),
             'search' => $this->initSelect($table),
-            'count' => $this->initCount($table)
+            'count' => $this->initCount($table),
+            'update' => $this->initUpdate($table),
+            'delete' => $this->initDelete($table)
         ];
     }
 
@@ -119,6 +125,26 @@ class SqlGenerator
             'conditions' => [],
             'sql' => sprintf(self::COUNT_SQL, $table),
             'execute' => self::FETCH_COLUMN
+        ];
+    }
+
+    protected function initUpdate($table)
+    {
+        return [
+            'sql_type' => self::UPDATE,
+            'require' => ['id'],
+            'sql' => sprintf(self::UPDATE_SQL, $table),
+            'execute' => self::EXECUTE
+        ];
+    }
+
+    protected function initDelete($table)
+    {
+        return [
+            'sql_type' => self::DELETE,
+            'require' => ['id'],
+            'sql' => sprintf(self::DELETE_SQL, $table),
+            'execute' => self::EXECUTE
         ];
     }
 }
