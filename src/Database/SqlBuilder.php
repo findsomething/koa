@@ -325,7 +325,7 @@ class SqlBuilder
         $where = isset($data['where']) ? $data['where'] : [];
         if (!is_array($where) || [] == $where) {
             $this->sqlMap['sql'] = $this->replaceSqlLabel($this->sqlMap['sql'], 'where', '');
-            $this->sqlMap['sql'] = str_replace('where', '', $this->sqlMap['sql']);
+            $this->sqlMap['sql'] = str_ireplace('where', '', $this->sqlMap['sql']);
             return $this;
         }
         $parseWhere = $this->parseWhereStyleData($where, 'and');
