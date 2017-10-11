@@ -77,4 +77,13 @@ class Db
             ]
         ]);
     }
+
+    public function get($sid, $id)
+    {
+        yield $this->query($sid, [
+            'var' => [
+                'id' => $id
+            ]
+        ]);
+    }
 }

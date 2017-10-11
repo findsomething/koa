@@ -48,13 +48,14 @@ class SqlBuilder
         }
         $this->parseVars($data);
         $this->parseWhere($data);
-        $this->stripWhere($data);
         $this->parseAnds($data);
         $this->parseOr($data);
 
         $this->parseGroupBy($data);
         $this->parseOrderBy($data);
         $this->parseLimit($data);
+
+        $this->stripWhere($data);
         return $this;
     }
 
@@ -322,10 +323,12 @@ class SqlBuilder
 
     private function stripWhere($data)
     {
+        $var = isset($data['var']) ? $data['var'] : [];
         $where = isset($data['where']) ? $data['where'] : [];
-        if (!is_array($where) || [] == $where) {
-            $this->sqlMap['sql'] = str_ireplace('where', '', $this->sqlMap['sql']);
+        if ((is_array($where) && !empty($where)) || (is_array($var) && !empty($var))) {
+            return $this;
         }
+        $this->sqlMap['sql'] = str_ireplace('where', '', $this->sqlMap['sql']);
         return $this;
     }
 

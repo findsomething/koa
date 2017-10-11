@@ -60,6 +60,12 @@ class BaseDao
         yield $this->db->count($sid, $data);
     }
 
+    public function get($id)
+    {
+        $sid = $this->getSid(__FUNCTION__);
+        yield $this->db->get($sid, $id);
+    }
+
     protected function getSid($action)
     {
         $partName = '';
@@ -81,6 +87,9 @@ class BaseDao
                 break;
             case 'delete':
                 $partName = 'delete';
+                break;
+            case 'get':
+                $partName = 'get';
                 break;
         }
         return sprintf("%s.%s", $this->table, $partName);

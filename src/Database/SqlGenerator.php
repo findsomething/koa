@@ -16,14 +16,16 @@ class SqlGenerator
 
     const INSERT_SQL = 'INSERT INTO %s #INSERT#';
     const INSERTS_SQL = 'INSERT INTO %s #INSERTS#';
-    const SELECT_SQL = 'SELECT * FROM %s WHERE #WHERE# #ORDER# #LIMIT#';
+    const SEARCH_SQL = 'SELECT * FROM %s WHERE #WHERE# #ORDER# #LIMIT#';
     const COUNT_SQL = 'SELECT count(*) FROM %s WHERE #WHERE#';
     const UPDATE_SQL = 'UPDATE %s SET #DATA# WHERE id = #{id} LIMIT 1';
     const DELETE_SQL = 'DELETE FROM %s WHERE id = #{id} LIMIT 1';
+    const GET_SQL = 'SELECT * FROM %s WHERE id = #{id} LIMIT 1';
 
     const EXECUTE = 'executeQuery';
     const FETCH_ALL = 'fetchAll';
     const FETCH_COLUMN = 'fetchColumn';
+    const FETCH_ASSOC = 'fetchAssoc';
 
     protected $config;
 
@@ -75,10 +77,22 @@ class SqlGenerator
             'table' => $table,
             'insert' => $this->initInsert($table),
             'batch_insert' => $this->initBatchInsert($table),
-            'search' => $this->initSelect($table),
+            'search' => $this->initSearch($table),
             'count' => $this->initCount($table),
             'update' => $this->initUpdate($table),
-            'delete' => $this->initDelete($table)
+            'delete' => $this->initDelete($table),
+            'get' => $this->initGet($table)
+        ];
+    }
+
+    protected function initGet($table)
+    {
+        return [
+            'sql_type' => self::SELECT,
+            'require' => [],
+            'limit' => [],
+            'sql' => sprintf(self::GET_SQL, $table),
+            'execute' => self::FETCH_ASSOC
         ];
     }
 
@@ -104,14 +118,14 @@ class SqlGenerator
         ];
     }
 
-    protected function initSelect($table)
+    protected function initSearch($table)
     {
         return [
             'sql_type' => self::SELECT,
             'require' => [],
             'limit' => [],
             'conditions' => [],
-            'sql' => sprintf(self::SELECT_SQL, $table),
+            'sql' => sprintf(self::SEARCH_SQL, $table),
             'execute' => self::FETCH_ALL
         ];
     }
