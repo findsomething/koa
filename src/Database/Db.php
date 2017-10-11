@@ -11,6 +11,14 @@ class Db
         $this->sqlMap = $sqlMap;
     }
 
+    public function queryRaw($sql, $execute)
+    {
+        $connection = (yield MysqlPool::getInstance()->get());
+        $result = (yield $connection->$execute($sql));
+        MysqlPool::getInstance()->free($connection);
+        yield $result;
+    }
+
     public function query($sid, $data, $options = [])
     {
         $sqlMap = $this->sqlMap->getSql($sid, $data, $options);
