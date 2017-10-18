@@ -33,11 +33,6 @@ class Context
     public $res;
 
     /**
-     * @var \swoole_http_server
-     */
-    public $server;
-
-    /**
      * @var Logger
      */
     public $logger;

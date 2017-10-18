@@ -61,9 +61,7 @@ class Application
 
         $protocol->setMiddleWare($this->fn);
         $httpServer->setProtocol($protocol);
-
-        $this->context->server = $this->server;
-
+        
         $httpServer->listen();
     }
 

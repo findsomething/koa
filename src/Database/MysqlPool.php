@@ -2,8 +2,8 @@
 
 namespace FSth\Koa\Database;
 
-use FSth\DbProxy\Client;
-use FSth\DbProxy\Proxy;
+use FSth\Koa\Database\NonSync\Client;
+use FSth\Koa\Database\NonSync\Proxy;
 use FSth\Koa\Singleton\Singleton;
 
 class MysqlPool

@@ -2,6 +2,8 @@
 
 namespace FSth\Koa\Dao;
 
+use FSth\Co\Call;
+use FSth\Co\Tool;
 use FSth\Koa\Database\Db;
 
 class BaseDao
