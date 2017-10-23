@@ -32,6 +32,10 @@ class Client implements ClientEr
         $this->close = true;
     }
 
+    public function getDb()
+    {
+        return $this->db;
+    }
 
     public function connect()
     {

@@ -2,8 +2,10 @@
 
 namespace FSth\Koa\Database;
 
-use FSth\Koa\Database\NonSync\Client;
-use FSth\Koa\Database\NonSync\Proxy;
+use FSth\Koa\Database\NonSync\Client as AsyncClient;
+use FSth\Koa\Database\NonSync\Proxy as AsyncProxy;
+use FSth\DbProxy\Client as SyncClient;
+use FSth\DbProxy\Proxy as SyncProxy;
 use FSth\Koa\Singleton\Singleton;
 
 class MysqlPool
@@ -24,6 +26,7 @@ class MysqlPool
      *      user
      *      password
      *  max_conns
+     *  type async|sync
      * @param $logger
      */
     public function init(array $config, $logger = null)
@@ -52,8 +55,14 @@ class MysqlPool
     protected function createDb()
     {
         $cfg = $this->config['server_info'];
-        $client = new Client($cfg['name'], $cfg['user'], $cfg['password'], $cfg['host'], $cfg['port']);
-        $proxy = new Proxy($client);
+        if ($this->config['type'] == 'sync') {
+            $client = new SyncClient($cfg['name'], $cfg['user'], $cfg['password'], $cfg['host'], $cfg['port']);
+            $proxy = new SyncProxy($client);
+            $proxy->setLogger($this->logger);
+            return $proxy;
+        }
+        $client = new AsyncClient($cfg['name'], $cfg['user'], $cfg['password'], $cfg['host'], $cfg['port']);
+        $proxy = new AsyncProxy($client);
         $proxy->setLogger($this->logger);
         return $proxy;
     }
